@@ -1,29 +1,55 @@
+import java.util.Scanner;
+
+/**
+ * MAIN CLASS - UseCase11PalindromeCheckerApp
+ * Application entry point
+ */
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // UC10: Case-Insensitive & Space-Ignored Palindrome Check
-        String input = "A man a plan a canal Panama";
+        Scanner sc = new Scanner(System.in);
 
+        System.out.print("Input: ");
+        String input = sc.nextLine();
 
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        // Create object of service class
+        PalindromeService service = new PalindromeService();
 
+        // Call method
+        boolean result = service.checkPalindrome(input);
+
+        System.out.println("Is Palindrome? : " + result);
+
+        sc.close();
+    }
+}
+
+/**
+ * Service class that contains palindrome logic
+ */
+class PalindromeService {
+
+    /**
+     * Checks whether the input string is a palindrome
+     */
+    public boolean checkPalindrome(String input) {
+
+        // Initialize pointers
         int start = 0;
-        int end = normalized.length() - 1;
-        boolean isPalindrome = true;
+        int end = input.length() - 1;
 
-
+        // Compare characters moving inward
         while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
+
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
             }
+
             start++;
             end--;
         }
 
-        System.out.println("Input : " + input);
-        System.out.println("Normalized : " + normalized);
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        return true;
     }
 }
