@@ -1,79 +1,48 @@
-import java.util.*;
+import java.util.Scanner;
 
-/**
- * MAIN CLASS
- */
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Input: ");
+        System.out.print("Input : ");
         String input = sc.nextLine();
 
-        // Choose strategy (StackStrategy used here)
-        PalindromeStrategy strategy = new StackStrategy();
+        PalindromeService service = new PalindromeService();
 
-        boolean result = strategy.check(input);
+        // Start time
+        long startTime = System.nanoTime();
+
+        boolean result = service.checkPalindrome(input);
+
+        // End time
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
 
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + executionTime + " ns");
 
         sc.close();
     }
 }
 
-/**
- * STRATEGY INTERFACE
- */
-interface PalindromeStrategy {
+class PalindromeService {
 
-    boolean check(String input);
-}
+    public boolean checkPalindrome(String input) {
 
-/**
- * STACK STRATEGY IMPLEMENTATION
- */
-class StackStrategy implements PalindromeStrategy {
+        int start = 0;
+        int end = input.length() - 1;
 
-    public boolean check(String input) {
+        while(start < end) {
 
-        Stack<Character> stack = new Stack<>();
-
-        // Push characters into stack
-        for(char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // Compare by popping
-        for(char c : input.toCharArray()) {
-            if(c != stack.pop()) {
+            if(input.charAt(start) != input.charAt(end)) {
                 return false;
             }
-        }
 
-        return true;
-    }
-}
-
-/**
- * DEQUE STRATEGY IMPLEMENTATION
- */
-class DequeStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
-
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for(char c : input.toCharArray()) {
-            deque.addLast(c);
-        }
-
-        while(deque.size() > 1) {
-
-            if(deque.removeFirst() != deque.removeLast()) {
-                return false;
-            }
+            start++;
+            end--;
         }
 
         return true;
