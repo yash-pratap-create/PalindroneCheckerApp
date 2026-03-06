@@ -1,65 +1,29 @@
-/**
- * ==========================================================
- * MAIN CLASS - UseCase9RecursivePalindrome
- * ==========================================================
- *
- * Use Case 9: Recursive Palindrome Checker
- *
- * Description:
- * This class validates a palindrome using recursion.
- *
- * Characters are compared from the outer positions
- * moving inward using recursive calls.
- *
- * The recursion stops when:
- * - All characters are matched, or
- * - A mismatch is found.
- *
- * This use case demonstrates divide-and-conquer
- * logic using method recursion.
- *
- * @author Developer
- * @version 1.0
- */
-
 public class PalindromeCheckerApp {
 
-    /**
-     * Application entry point for UC9.
-     *
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
 
-        String input = "madam";
+        // UC10: Case-Insensitive & Space-Ignored Palindrome Check
+        String input = "A man a plan a canal Panama";
 
-        boolean result = check(input, 0, input.length() - 1);
+
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
 
         System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
-    }
-
-    /**
-     * Recursively checks whether a string is palindrome.
-     *
-     * @param s Input string
-     * @param start Starting index
-     * @param end Ending index
-     * @return true if palindrome, otherwise false
-     */
-    private static boolean check(String s, int start, int end) {
-
-        // Base condition: If pointers cross or meet
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters don't match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving inward
-        return check(s, start + 1, end - 1);
+        System.out.println("Normalized : " + normalized);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
