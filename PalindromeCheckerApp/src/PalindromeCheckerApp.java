@@ -25,7 +25,7 @@ public class PalindromeCheckerApp {
      * Displays the welcome message with application name and version.
      * Key Concepts: Console Output using System.out.println()
      */
-    private static void main() {
+    public static void main() {
         System.out.println("====================================");
         System.out.println("Welcome to palindrome checker management system " );
         System.out.println("Version: 1.0");
